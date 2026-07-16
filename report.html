@@ -67,6 +67,27 @@
   .win{color:var(--good);font-weight:700;} .lose{color:var(--bad);font-weight:700;}
   .foot{margin-top:60px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:18px;}
   .tag{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;color:#fff;}
+  @media print{
+    @page{size:A4 landscape;margin:10mm}
+    :root{
+      --bg:#fff;--card:#fff;--ink:#1a1a1a;--muted:#5f5f5f;--line:#dedbd4;
+      --codex56:#e07a3c;--codex55:#c9a227;--ccopus:#0e8f8e;
+      --oc56:#2563eb;--oc55:#60a5fa;--omp56:#c91f69;--omp55:#e85d9d;
+      --shadow:none;
+    }
+    body{background:#fff;font-size:12px;line-height:1.42;
+      -webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .wrap{max-width:none;padding:0}
+    h1{font-size:25px} h2{font-size:18px;margin:30px 0 10px}
+    h3{font-size:13px;margin:16px 0 6px}
+    p{margin:8px 0}.lead{font-size:14px}
+    .card{padding:13px 15px;margin:10px 0;box-shadow:none}
+    .grid{gap:8px}.col{padding:9px 10px}
+    table{font-size:11px}th,td{padding:5px 6px}
+    .bar{margin:4px 0}.bar .track{height:20px}
+    .kpi{font-size:26px}.foot{margin-top:30px;font-size:10.5px}
+    .card,.col,.bar,.heat,tr{break-inside:avoid}
+  }
 </style>
 
 <div class="wrap">
