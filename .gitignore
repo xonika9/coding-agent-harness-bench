@@ -1,3 +1,6 @@
+.DS_Store
+.env
+*.py[cod]
+__pycache__/
+_heldout/
 runs/
-results/*/
-!results/.gitkeep
