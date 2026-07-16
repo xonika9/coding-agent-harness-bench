@@ -1,0 +1,38 @@
+{
+ "codex56": {
+  "wall_mean": 110,
+  "wall_tot": 1316,
+  "out_tot": 43804,
+  "cost_tot": 6.19,
+  "cost_mean": 0.516,
+  "turns_mean": 4.9,
+  "interv": 0
+ },
+ "codex55": {
+  "wall_mean": 87,
+  "wall_tot": 1042,
+  "out_tot": 40142,
+  "cost_tot": 3.79,
+  "cost_mean": 0.316,
+  "turns_mean": 8.2,
+  "interv": 0
+ },
+ "ccx": {
+  "wall_mean": 82,
+  "wall_tot": 980,
+  "out_tot": 209878,
+  "cost_tot": 20.94,
+  "cost_mean": 1.745,
+  "turns_mean": 30.1,
+  "interv": 1
+ },
+ "ccopus": {
+  "wall_mean": 96,
+  "wall_tot": 1152,
+  "out_tot": 195283,
+  "cost_tot": 15.61,
+  "cost_mean": 1.301,
+  "turns_mean": 19.7,
+  "interv": 0
+ }
+}

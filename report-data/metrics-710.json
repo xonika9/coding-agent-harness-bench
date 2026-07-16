@@ -1,0 +1,450 @@
+{
+ "tasks": [
+  "t7-ts-formula",
+  "t8-py-query",
+  "t9-ts-vm",
+  "t10-py-cron"
+ ],
+ "cols": [
+  "codex56",
+  "codex55",
+  "ccopus",
+  "oc56",
+  "oc55",
+  "omp56",
+  "omp55"
+ ],
+ "cells": {
+  "t7-ts-formula|r1|codex56": {
+   "grade": "PASS",
+   "cost": 0.6766,
+   "out_tok": 11716,
+   "wall_sec": 213,
+   "wall_src": "proxy"
+  },
+  "t7-ts-formula|r1|codex55": {
+   "grade": "PASS",
+   "cost": 0.8186,
+   "out_tok": 15296,
+   "wall_sec": 254,
+   "wall_src": "proxy"
+  },
+  "t7-ts-formula|r1|ccopus": {
+   "grade": "PASS",
+   "cost": 3.077,
+   "out_tok": 13544,
+   "wall_sec": 905,
+   "wall_src": "measured"
+  },
+  "t7-ts-formula|r1|oc56": {
+   "grade": "PASS",
+   "cost": 0.803,
+   "out_tok": 6585,
+   "wall_sec": 204,
+   "wall_src": "measured"
+  },
+  "t7-ts-formula|r1|oc55": {
+   "grade": "PASS",
+   "cost": 1.129,
+   "out_tok": 11019,
+   "wall_sec": 327,
+   "wall_src": "measured"
+  },
+  "t7-ts-formula|r1|omp56": {
+   "grade": "PASS",
+   "cost": 2.9478,
+   "out_tok": 15526,
+   "wall_sec": 508,
+   "wall_src": "measured"
+  },
+  "t7-ts-formula|r1|omp55": {
+   "grade": "PASS",
+   "cost": 1.7508,
+   "out_tok": 15539,
+   "wall_sec": 371,
+   "wall_src": "measured"
+  },
+  "t7-ts-formula|r2|codex56": {
+   "grade": "PASS",
+   "cost": 0.6878,
+   "out_tok": 10840,
+   "wall_sec": 244,
+   "wall_src": "proxy"
+  },
+  "t7-ts-formula|r2|codex55": {
+   "grade": "PASS",
+   "cost": 1.0034,
+   "out_tok": 16161,
+   "wall_sec": 292,
+   "wall_src": "proxy"
+  },
+  "t7-ts-formula|r2|ccopus": {
+   "grade": "PASS",
+   "cost": 2.5996,
+   "out_tok": 56709,
+   "wall_sec": 705,
+   "wall_src": "measured"
+  },
+  "t7-ts-formula|r2|oc56": {
+   "grade": "PASS",
+   "cost": 0.6673,
+   "out_tok": 7476,
+   "wall_sec": 205,
+   "wall_src": "measured"
+  },
+  "t7-ts-formula|r2|oc55": {
+   "grade": "PASS",
+   "cost": 0.9082,
+   "out_tok": 9878,
+   "wall_sec": 339,
+   "wall_src": "measured"
+  },
+  "t7-ts-formula|r2|omp56": {
+   "grade": "PASS",
+   "cost": 3.7701,
+   "out_tok": 16977,
+   "wall_sec": 1153,
+   "wall_src": "measured"
+  },
+  "t7-ts-formula|r2|omp55": {
+   "grade": "PASS",
+   "cost": 1.4791,
+   "out_tok": 13434,
+   "wall_sec": 311,
+   "wall_src": "measured"
+  },
+  "t8-py-query|r1|codex56": {
+   "grade": "PASS",
+   "cost": 0.3405,
+   "out_tok": 5304,
+   "wall_sec": 75,
+   "wall_src": "proxy"
+  },
+  "t8-py-query|r1|codex55": {
+   "grade": "PASS",
+   "cost": 0.5151,
+   "out_tok": 7022,
+   "wall_sec": 104,
+   "wall_src": "proxy"
+  },
+  "t8-py-query|r1|ccopus": {
+   "grade": "PASS",
+   "cost": 1.2654,
+   "out_tok": 24781,
+   "wall_sec": 346,
+   "wall_src": "measured"
+  },
+  "t8-py-query|r1|oc56": {
+   "grade": "PASS",
+   "cost": 0.6032,
+   "out_tok": 4743,
+   "wall_sec": 172,
+   "wall_src": "measured"
+  },
+  "t8-py-query|r1|oc55": {
+   "grade": "PASS",
+   "cost": 0.6082,
+   "out_tok": 4278,
+   "wall_sec": 193,
+   "wall_src": "measured"
+  },
+  "t8-py-query|r1|omp56": {
+   "grade": "PASS",
+   "cost": 3.0034,
+   "out_tok": 12296,
+   "wall_sec": 591,
+   "wall_src": "measured"
+  },
+  "t8-py-query|r1|omp55": {
+   "grade": "PASS",
+   "cost": 0.7476,
+   "out_tok": 6394,
+   "wall_sec": 149,
+   "wall_src": "measured"
+  },
+  "t8-py-query|r2|codex56": {
+   "grade": "PASS",
+   "cost": 0.4616,
+   "out_tok": 5537,
+   "wall_sec": 102,
+   "wall_src": "proxy"
+  },
+  "t8-py-query|r2|codex55": {
+   "grade": "PASS",
+   "cost": 0.5735,
+   "out_tok": 7142,
+   "wall_sec": 111,
+   "wall_src": "proxy"
+  },
+  "t8-py-query|r2|ccopus": {
+   "grade": "PASS",
+   "cost": 1.4123,
+   "out_tok": 26752,
+   "wall_sec": 390,
+   "wall_src": "measured"
+  },
+  "t8-py-query|r2|oc56": {
+   "grade": "PASS",
+   "cost": 0.6414,
+   "out_tok": 4731,
+   "wall_sec": 248,
+   "wall_src": "measured"
+  },
+  "t8-py-query|r2|oc55": {
+   "grade": "PASS",
+   "cost": 0.5511,
+   "out_tok": 3249,
+   "wall_sec": 172,
+   "wall_src": "measured"
+  },
+  "t8-py-query|r2|omp56": {
+   "grade": "PASS",
+   "cost": 2.811,
+   "out_tok": 11876,
+   "wall_sec": 810,
+   "wall_src": "measured"
+  },
+  "t8-py-query|r2|omp55": {
+   "grade": "PASS",
+   "cost": 0.9715,
+   "out_tok": 6828,
+   "wall_sec": 163,
+   "wall_src": "measured"
+  },
+  "t9-ts-vm|r1|codex56": {
+   "grade": "PASS",
+   "cost": 0.4479,
+   "out_tok": 5320,
+   "wall_sec": 126,
+   "wall_src": "measured"
+  },
+  "t9-ts-vm|r1|codex55": {
+   "grade": "PASS",
+   "cost": 0.3934,
+   "out_tok": 5858,
+   "wall_sec": 121,
+   "wall_src": "measured"
+  },
+  "t9-ts-vm|r1|ccopus": {
+   "grade": "PASS",
+   "cost": 1.0982,
+   "out_tok": 13544,
+   "wall_sec": 174,
+   "wall_src": "measured"
+  },
+  "t9-ts-vm|r1|oc56": {
+   "grade": "PASS",
+   "cost": 0.4441,
+   "out_tok": 3782,
+   "wall_sec": 125,
+   "wall_src": "measured"
+  },
+  "t9-ts-vm|r1|oc55": {
+   "grade": "PASS",
+   "cost": 0.7118,
+   "out_tok": 5646,
+   "wall_sec": 192,
+   "wall_src": "measured"
+  },
+  "t9-ts-vm|r1|omp56": {
+   "grade": "PASS",
+   "cost": 3.5467,
+   "out_tok": 13173,
+   "wall_sec": 650,
+   "wall_src": "measured"
+  },
+  "t9-ts-vm|r1|omp55": {
+   "grade": "PASS",
+   "cost": 1.706,
+   "out_tok": 11342,
+   "wall_sec": 277,
+   "wall_src": "measured"
+  },
+  "t9-ts-vm|r2|codex56": {
+   "grade": "PASS",
+   "cost": 0.3019,
+   "out_tok": 4450,
+   "wall_sec": 95,
+   "wall_src": "measured"
+  },
+  "t9-ts-vm|r2|codex55": {
+   "grade": "PASS",
+   "cost": 0.3589,
+   "out_tok": 5501,
+   "wall_sec": 114,
+   "wall_src": "measured"
+  },
+  "t9-ts-vm|r2|ccopus": {
+   "grade": "PASS",
+   "cost": 1.0327,
+   "out_tok": 15971,
+   "wall_sec": 212,
+   "wall_src": "measured"
+  },
+  "t9-ts-vm|r2|oc56": {
+   "grade": "PASS",
+   "cost": 0.6067,
+   "out_tok": 5102,
+   "wall_sec": 166,
+   "wall_src": "measured"
+  },
+  "t9-ts-vm|r2|oc55": {
+   "grade": "PASS",
+   "cost": 0.5989,
+   "out_tok": 4554,
+   "wall_sec": 170,
+   "wall_src": "measured"
+  },
+  "t9-ts-vm|r2|omp56": {
+   "grade": "PASS",
+   "cost": 1.4706,
+   "out_tok": 4930,
+   "wall_sec": 173,
+   "wall_src": "measured"
+  },
+  "t9-ts-vm|r2|omp55": {
+   "grade": "PASS",
+   "cost": 2.1062,
+   "out_tok": 10384,
+   "wall_sec": 395,
+   "wall_src": "measured"
+  },
+  "t10-py-cron|r1|codex56": {
+   "grade": "PASS",
+   "cost": 0.4634,
+   "out_tok": 8056,
+   "wall_sec": 169,
+   "wall_src": "measured"
+  },
+  "t10-py-cron|r1|codex55": {
+   "grade": "PASS",
+   "cost": 0.4561,
+   "out_tok": 6269,
+   "wall_sec": 138,
+   "wall_src": "measured"
+  },
+  "t10-py-cron|r1|ccopus": {
+   "grade": "PASS",
+   "cost": 1.4161,
+   "out_tok": 27800,
+   "wall_sec": 359,
+   "wall_src": "measured"
+  },
+  "t10-py-cron|r1|oc56": {
+   "grade": "PASS",
+   "cost": 0.7597,
+   "out_tok": 5742,
+   "wall_sec": 200,
+   "wall_src": "measured"
+  },
+  "t10-py-cron|r1|oc55": {
+   "grade": "PASS",
+   "cost": 0.5695,
+   "out_tok": 3754,
+   "wall_sec": 160,
+   "wall_src": "measured"
+  },
+  "t10-py-cron|r1|omp56": {
+   "grade": "PASS",
+   "cost": 3.978,
+   "out_tok": 16385,
+   "wall_sec": 794,
+   "wall_src": "measured"
+  },
+  "t10-py-cron|r1|omp55": {
+   "grade": "PASS",
+   "cost": 1.0455,
+   "out_tok": 7453,
+   "wall_sec": 193,
+   "wall_src": "measured"
+  },
+  "t10-py-cron|r2|codex56": {
+   "grade": "PASS",
+   "cost": 0.3918,
+   "out_tok": 5518,
+   "wall_sec": 124,
+   "wall_src": "measured"
+  },
+  "t10-py-cron|r2|codex55": {
+   "grade": "PASS",
+   "cost": 0.653,
+   "out_tok": 11112,
+   "wall_sec": 225,
+   "wall_src": "measured"
+  },
+  "t10-py-cron|r2|ccopus": {
+   "grade": "PASS",
+   "cost": 1.3378,
+   "out_tok": 25773,
+   "wall_sec": 343,
+   "wall_src": "measured"
+  },
+  "t10-py-cron|r2|oc56": {
+   "grade": "PASS",
+   "cost": 0.7506,
+   "out_tok": 5801,
+   "wall_sec": 290,
+   "wall_src": "measured"
+  },
+  "t10-py-cron|r2|oc55": {
+   "grade": "PASS",
+   "cost": 0.4198,
+   "out_tok": 3603,
+   "wall_sec": 138,
+   "wall_src": "measured"
+  },
+  "t10-py-cron|r2|omp56": {
+   "grade": "PASS",
+   "cost": 1.5309,
+   "out_tok": 7904,
+   "wall_sec": 394,
+   "wall_src": "measured"
+  },
+  "t10-py-cron|r2|omp55": {
+   "grade": "PASS",
+   "cost": 1.7715,
+   "out_tok": 11568,
+   "wall_sec": 469,
+   "wall_src": "measured"
+  }
+ },
+ "totals": {
+  "codex56": {
+   "cost8": 3.772,
+   "out_tok8": 56741,
+   "wall_sec8": 1148
+  },
+  "codex55": {
+   "cost8": 4.772,
+   "out_tok8": 74361,
+   "wall_sec8": 1359
+  },
+  "ccopus": {
+   "cost8": 13.239,
+   "out_tok8": 204874,
+   "wall_sec8": 3434
+  },
+  "oc56": {
+   "cost8": 5.276,
+   "out_tok8": 43962,
+   "wall_sec8": 1610
+  },
+  "oc55": {
+   "cost8": 5.496,
+   "out_tok8": 45981,
+   "wall_sec8": 1691
+  },
+  "omp56": {
+   "cost8": 23.058,
+   "out_tok8": 99067,
+   "wall_sec8": 5073
+  },
+  "omp55": {
+   "cost8": 11.578,
+   "out_tok8": 82942,
+   "wall_sec8": 2328
+  }
+ },
+ "pass": "56/56",
+ "_wall_note": "wall_sec: process start->exit, seconds. wall_src=measured — from the runner's WALL_SEC; wall_src=proxy — reconstructed from run-dir timestamps (baseline commit -> last file write) after the scratchpad was wiped; proxy is a LOWER BOUND, validated against 8 known cells where it undershoots by 10-65s (it misses the agent's final turn after the last write). Affects codex56/codex55 on t7/t8 only. Runs were concurrent (-P4/-P6), so absolute times carry contention noise; ranks are robust (rank order identical to cost, Pearson r=0.986)."
+}

@@ -1,0 +1,260 @@
+<meta charset="utf-8">
+<title>Харнесс vs модель на тяжёлых задачах — личный тест</title>
+<style>
+  :root{
+    --bg:#f7f6f3; --card:#fffffe; --ink:#1a1a1a; --muted:#6b6b6b; --line:#e6e3dd;
+    --codex56:#e07a3c; --codex55:#c9a227; --ccopus:#0ea5a4;
+    --oc56:#2563eb; --oc55:#60a5fa; --omp56:#db2777; --omp55:#f472b6;
+    --good:#2e9e5b; --bad:#d1495b; --accent:#e07a3c;
+    --shadow:0 1px 2px rgba(0,0,0,.05),0 8px 24px rgba(0,0,0,.04);
+    --radius:14px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{ --bg:#14140f; --card:#1e1e18; --ink:#ececec; --muted:#a0a0a0; --line:#33322b;
+      --codex56:#f08a4c; --codex55:#e0bb3a; --ccopus:#2dd4bd;
+      --oc56:#60a5fa; --oc55:#93c5fd; --omp56:#f472b6; --omp55:#f9a8d4;
+      --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 28px rgba(0,0,0,.35);}
+  }
+  :root[data-theme="dark"]{ --bg:#14140f; --card:#1e1e18; --ink:#ececec; --muted:#a0a0a0; --line:#33322b;
+      --codex56:#f08a4c; --codex55:#e0bb3a; --ccopus:#2dd4bd; --oc56:#60a5fa; --oc55:#93c5fd; --omp56:#f472b6; --omp55:#f9a8d4; }
+  :root[data-theme="light"]{ --bg:#f7f6f3; --card:#fffffe; --ink:#1a1a1a; --muted:#6b6b6b; --line:#e6e3dd;
+      --codex56:#e07a3c; --codex55:#c9a227; --ccopus:#0ea5a4; --oc56:#2563eb; --oc55:#60a5fa; --omp56:#db2777; --omp55:#f472b6; }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;}
+  .wrap{max-width:940px;margin:0 auto;padding:40px 22px 90px;}
+  h1{font-size:30px;line-height:1.18;margin:0 0 6px;letter-spacing:-.02em;font-weight:760;}
+  h2{font-size:21px;margin:52px 0 14px;letter-spacing:-.01em;font-weight:700;}
+  h3{font-size:15px;margin:22px 0 8px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;}
+  p{margin:12px 0;} .lead{font-size:17px;color:var(--muted);margin-top:2px;}
+  code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;
+    background:color-mix(in srgb,var(--ink) 8%,transparent);padding:1px 5px;border-radius:5px;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 24px;box-shadow:var(--shadow);margin:16px 0;}
+  .verdict{border-left:5px solid var(--accent);}
+  .verdict .big{font-size:22px;font-weight:760;letter-spacing:-.01em;margin:2px 0 8px;}
+  .muted{color:var(--muted);} .small{font-size:13.5px;}
+  .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12.5px;font-weight:650;
+    border:1px solid var(--line);}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  @media(max-width:680px){.grid{grid-template-columns:repeat(2,1fr)}}
+  .col{border-radius:12px;padding:13px 14px;border:1px solid var(--line);background:var(--card);position:relative;}
+  .col.pick{border-color:var(--good);box-shadow:0 0 0 1px var(--good) inset;}
+  .col.warn{border-color:var(--bad);box-shadow:0 0 0 1px var(--bad) inset;}
+  .col .k{font-family:ui-monospace,monospace;font-weight:700;font-size:14px;}
+  .dot{display:inline-block;width:10px;height:10px;border-radius:50%;vertical-align:middle;margin-right:7px;}
+  table{width:100%;border-collapse:collapse;font-size:14px;margin:6px 0;}
+  th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--line);white-space:nowrap;}
+  th{font-size:11.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--muted);font-weight:650;}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;font-family:ui-monospace,monospace;}
+  tr.tot td{border-top:2px solid var(--line);font-weight:700;background:color-mix(in srgb,var(--ink) 3%,transparent);}
+  .bar{display:flex;align-items:center;gap:10px;margin:6px 0;}
+  .bar .lab{width:92px;flex:none;font-family:ui-monospace,monospace;font-size:12.5px;font-weight:650;}
+  .bar .track{flex:1;background:color-mix(in srgb,var(--ink) 6%,transparent);border-radius:7px;height:24px;position:relative;overflow:hidden;}
+  .bar .fill{height:100%;border-radius:7px;display:flex;align-items:center;justify-content:flex-end;
+    padding-right:8px;color:#fff;font-size:12px;font-weight:700;font-variant-numeric:tabular-nums;min-width:38px;}
+  .heat{display:grid;grid-template-columns:150px repeat(4,1fr);gap:4px;font-size:12px;}
+  .heat .h{color:var(--muted);font-size:11px;padding:4px 2px;text-align:center;}
+  .heat .rlab{font-family:ui-monospace,monospace;font-weight:650;font-size:12.5px;display:flex;align-items:center;gap:6px;}
+  .cell{background:var(--good);color:#fff;border-radius:6px;text-align:center;padding:7px 2px;font-weight:700;}
+  .callout{background:color-mix(in srgb,var(--accent) 12%,var(--card));border:1px solid color-mix(in srgb,var(--accent) 35%,var(--line));}
+  .flag{background:color-mix(in srgb,var(--bad) 10%,var(--card));border:1px solid color-mix(in srgb,var(--bad) 32%,var(--line));}
+  .kpi{font-size:32px;font-weight:780;letter-spacing:-.02em;line-height:1;}
+  .kpirow{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  @media(max-width:680px){.kpirow{grid-template-columns:1fr}}
+  ul{margin:10px 0;padding-left:22px;} li{margin:6px 0;}
+  .win{color:var(--good);font-weight:700;} .lose{color:var(--bad);font-weight:700;}
+  .foot{margin-top:60px;color:var(--muted);font-size:13px;border-top:1px solid var(--line);padding-top:18px;}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:1px 8px;border-radius:999px;color:#fff;}
+</style>
+
+<div class="wrap">
+
+<span class="pill">Личный тест · не бенчмарк · для себя · v4 (7 связок, тяжёлые задачи)</span>
+<h1>Харнесс решает больше, чем модель</h1>
+<p class="lead">7 связок «харнесс × модель» на 4 тяжёлых creation‑задачах со строгим скрытым оракулом. Корректность у всех одинаковая — поэтому весь вопрос в цене. И цену делает не модель, а <b>обвязка</b>: одна и та же GPT‑5.6‑sol стоит от $3,8 до $23 в зависимости от того, кто её гоняет.</p>
+
+<div class="card verdict">
+  <div class="small muted">ВЕРДИКТ (для личного выбора инструмента)</div>
+  <div class="big">Оставаться на Codex. При идентичной корректности он дешевле всех; opencode рядом; omp и нативный Claude Code (opus) — кратно дороже без выигрыша.</div>
+  <p style="margin:6px 0 0"><b>Главное число.</b> На одной и той же модели <code>gpt‑5.6‑sol medium</code> восемь прогонов стоят <b>$3,77 в Codex</b>, <b>$5,28 в opencode</b> и <b>$23,06 в omp</b> — разброс <b>6,1×</b> при нулевой разнице в правильности. Харнесс — более мощный рычаг цены, чем выбор модели.</p>
+  <p style="margin:10px 0 0"><b>Корректность вообще не разделяет.</b> 56 из 56 прогонов (7 связок × 4 задачи × 2) прошли и видимый, и строгий скрытый оракул. Ни модель, ни харнесс не роняют результат на решаемых задачах — значит решение на 100% про эффективность.</p>
+</div>
+
+<h2>Что и на чём гоняли</h2>
+<p>Ранняя версия теста гоняла 6 лёгких задач — там все давали 100%, разделения не было (это и был главный упрёк). Их <b>выкинул</b>. Здесь — только 4 <b>авторские bespoke creation‑задачи</b>, специально тяжёлые и с большим скрытым слоем на краевые случаи:</p>
+<div class="grid" style="grid-template-columns:repeat(2,1fr)">
+  <div class="col"><div class="k">t7 · TS формулы</div><div class="small muted" style="margin-top:4px">движок формул таблицы: токенайзер + парсер приоритетов + функции + строгая таксономия ошибок. 61+44 теста.</div></div>
+  <div class="col"><div class="k">t8 · PY запросы</div><div class="small muted" style="margin-top:4px">движок запросов: filter→sort→distinct→paginate→project, строгая семантика типов. 29+22.</div></div>
+  <div class="col"><div class="k">t9 · TS стек‑VM</div><div class="small muted" style="margin-top:4px">интерпретатор ассемблера: стек, переменные, метки, переходы, лимит шагов. 33+35.</div></div>
+  <div class="col"><div class="k">t10 · PY cron</div><div class="small muted" style="margin-top:4px">планировщик cron: разбор 5 полей, правило OR для dom/dow, следующие N срабатываний. 20+22.</div></div>
+</div>
+<p class="small muted">Оракул честный: заранее проверено, что «услужливое» решение (коэрсит типы, читает неинициализированную переменную как 0, ставит AND вместо OR) <b>падает</b> на скрытом слое; эталон проходит; для t10 совпадение с независимым brute‑force сканером на 24 расписаниях. Грейдинг без установки зависимостей: TS — <code>node --test</code> + <code>tsc</code>, PY — <code>unittest</code>.</p>
+
+<h3>Семь связок</h3>
+<div class="grid">
+  <div class="col pick"><div class="k"><span class="dot" style="background:var(--codex56)"></span>codex56</div><div class="small muted">Codex · 5.6‑sol · med</div><div class="small win" style="margin-top:4px">дешевле всех</div></div>
+  <div class="col"><div class="k"><span class="dot" style="background:var(--codex55)"></span>codex55</div><div class="small muted">Codex · 5.5 · high</div></div>
+  <div class="col"><div class="k"><span class="dot" style="background:var(--oc56)"></span>oc56</div><div class="small muted">opencode · 5.6‑sol · med</div></div>
+  <div class="col"><div class="k"><span class="dot" style="background:var(--oc55)"></span>oc55</div><div class="small muted">opencode · 5.5 · high</div></div>
+  <div class="col"><div class="k"><span class="dot" style="background:var(--omp55)"></span>omp55</div><div class="small muted">omp · 5.5 · high</div></div>
+  <div class="col"><div class="k"><span class="dot" style="background:var(--ccopus)"></span>ccopus</div><div class="small muted">Claude Code · opus‑4.8 · xhigh</div></div>
+  <div class="col warn"><div class="k"><span class="dot" style="background:var(--omp56)"></span>omp56</div><div class="small muted">omp · 5.6‑sol · med</div><div class="small lose" style="margin-top:4px">дороже всех</div></div>
+</div>
+<p class="small muted">Все на подписках, поэтому <b>$ — это API‑эквивалент</b> (сколько стоило бы на метрируемом API по одному тарифу: 5.5/5.6‑sol — $5/$0,5/$30 за Mtok in/cache/out; opus — $5/$25 +cache). Codex/opencode/omp гоняют <b>одни и те же</b> gpt‑5.6‑sol и gpt‑5.5 — разницу делает только обвязка. ccopus стоит особняком: это другая модель (opus), а не тот же движок.</p>
+
+<h2>1. Корректность: 56 из 56 — полная ничья</h2>
+<p>Каждая связка прошла оба слоя оракула на всех 4 задачах в обоих прогонах. Ни одного провала — даже на 15‑минутных многошаговых задачах со скрытыми краевыми случаями, заточенными ловить «услужливость».</p>
+<div class="card" style="overflow-x:auto">
+  <div class="heat" style="grid-template-columns:150px repeat(4,1fr);min-width:520px">
+    <div></div><div class="h">t7 формулы</div><div class="h">t8 запросы</div><div class="h">t9 VM</div><div class="h">t10 cron</div>
+    <div class="rlab"><span class="dot" style="background:var(--codex56)"></span>codex56</div><div class="cell">✓✓</div><div class="cell">✓✓</div><div class="cell">✓✓</div><div class="cell">✓✓</div>
+    <div class="rlab"><span class="dot" style="background:var(--codex55)"></span>codex55</div><div class="cell">✓✓</div><div class="cell">✓✓</div><div class="cell">✓✓</div><div class="cell">✓✓</div>
+    <div class="rlab"><span class="dot" style="background:var(--oc56)"></span>oc56</div><div class="cell">✓✓</div><div class="cell">✓✓</div><div class="cell">✓✓</div><div class="cell">✓✓</div>
+    <div class="rlab"><span class="dot" style="background:var(--oc55)"></span>oc55</div><div class="cell">✓✓</div><div class="cell">✓✓</div><div class="cell">✓✓</div><div class="cell">✓✓</div>
+    <div class="rlab"><span class="dot" style="background:var(--omp55)"></span>omp55</div><div class="cell">✓✓</div><div class="cell">✓✓</div><div class="cell">✓✓</div><div class="cell">✓✓</div>
+    <div class="rlab"><span class="dot" style="background:var(--omp56)"></span>omp56</div><div class="cell">✓✓</div><div class="cell">✓✓</div><div class="cell">✓✓</div><div class="cell">✓✓</div>
+    <div class="rlab"><span class="dot" style="background:var(--ccopus)"></span>ccopus</div><div class="cell">✓✓</div><div class="cell">✓✓</div><div class="cell">✓✓</div><div class="cell">✓✓</div>
+  </div>
+  <p class="small muted" style="margin:12px 0 0">Разделения по правильности нет. Значит выбор инструмента — чисто про цену, токены и стабильность.</p>
+</div>
+
+<h2>2. Цена: полная таблица (API‑эквивалент, $ за 2 прогона на задачу)</h2>
+<div class="card" style="overflow-x:auto">
+<table>
+  <tr>
+    <th>задача</th>
+    <th class="n"><span class="dot" style="background:var(--codex56)"></span>codex56</th>
+    <th class="n"><span class="dot" style="background:var(--codex55)"></span>codex55</th>
+    <th class="n"><span class="dot" style="background:var(--oc56)"></span>oc56</th>
+    <th class="n"><span class="dot" style="background:var(--oc55)"></span>oc55</th>
+    <th class="n"><span class="dot" style="background:var(--omp55)"></span>omp55</th>
+    <th class="n"><span class="dot" style="background:var(--ccopus)"></span>ccopus</th>
+    <th class="n"><span class="dot" style="background:var(--omp56)"></span>omp56</th>
+  </tr>
+  <tr><td>t7 формулы</td><td class="n win">1,36</td><td class="n">1,82</td><td class="n">1,47</td><td class="n">2,04</td><td class="n">3,23</td><td class="n">5,68</td><td class="n lose">6,72</td></tr>
+  <tr><td>t8 запросы</td><td class="n win">0,80</td><td class="n">1,09</td><td class="n">1,24</td><td class="n">1,16</td><td class="n">1,72</td><td class="n">2,68</td><td class="n lose">5,81</td></tr>
+  <tr><td>t9 VM</td><td class="n win">0,75</td><td class="n win">0,75</td><td class="n">1,05</td><td class="n">1,31</td><td class="n">3,81</td><td class="n">2,13</td><td class="n lose">5,02</td></tr>
+  <tr><td>t10 cron</td><td class="n win">0,86</td><td class="n">1,11</td><td class="n">1,51</td><td class="n">0,99</td><td class="n">2,82</td><td class="n">2,75</td><td class="n lose">5,51</td></tr>
+  <tr class="tot"><td>Итого · 8 прогонов</td><td class="n win">3,77</td><td class="n">4,77</td><td class="n">5,28</td><td class="n">5,50</td><td class="n">11,58</td><td class="n">13,24</td><td class="n lose">23,06</td></tr>
+</table>
+<p class="small muted" style="margin:4px 0 0"><span class="win">Зелёным</span> — самый дешёвый на задаче (везде Codex). Время — в разделе 3: оно оказалось той же осью, что и цена.</p>
+</div>
+<div class="card">
+  <div class="bar"><div class="lab">codex56</div><div class="track"><div class="fill" style="width:16%;background:var(--codex56)">$3,8</div></div></div>
+  <div class="bar"><div class="lab">codex55</div><div class="track"><div class="fill" style="width:21%;background:var(--codex55)">$4,8</div></div></div>
+  <div class="bar"><div class="lab">oc56</div><div class="track"><div class="fill" style="width:23%;background:var(--oc56)">$5,3</div></div></div>
+  <div class="bar"><div class="lab">oc55</div><div class="track"><div class="fill" style="width:24%;background:var(--oc55)">$5,5</div></div></div>
+  <div class="bar"><div class="lab">omp55</div><div class="track"><div class="fill" style="width:50%;background:var(--omp55)">$11,6</div></div></div>
+  <div class="bar"><div class="lab">ccopus</div><div class="track"><div class="fill" style="width:57%;background:var(--ccopus)">$13,2</div></div></div>
+  <div class="bar"><div class="lab">omp56</div><div class="track"><div class="fill" style="width:100%;background:var(--omp56)">$23,1</div></div></div>
+  <p class="small muted" style="margin:10px 0 0">Итого за 8 прогонов. Codex и opencode — плотная дешёвая группа ($3,8–5,5). omp и ccopus — верхний ярус ($11–23).</p>
+</div>
+
+<h2>3. Время: та же ось, что и цена</h2>
+<p>Сначала я его выкинул — счёл, что при параллельном запуске оно зашумлено конкуренцией. Ошибся: шум есть, но сигнал сильнее шума. <b>Порядок связок по времени совпал с порядком по цене — все семь позиций, без единой перестановки</b> (Pearson r = 0,986).</p>
+<div class="card" style="overflow-x:auto">
+<table>
+  <tr>
+    <th>задача · сек (прогон 1 / прогон 2)</th>
+    <th class="n"><span class="dot" style="background:var(--codex56)"></span>codex56</th>
+    <th class="n"><span class="dot" style="background:var(--codex55)"></span>codex55</th>
+    <th class="n"><span class="dot" style="background:var(--oc56)"></span>oc56</th>
+    <th class="n"><span class="dot" style="background:var(--oc55)"></span>oc55</th>
+    <th class="n"><span class="dot" style="background:var(--omp55)"></span>omp55</th>
+    <th class="n"><span class="dot" style="background:var(--ccopus)"></span>ccopus</th>
+    <th class="n"><span class="dot" style="background:var(--omp56)"></span>omp56</th>
+  </tr>
+  <tr><td>t7 формулы</td><td class="n">213 / 244°</td><td class="n">254 / 292°</td><td class="n win">204 / 205</td><td class="n">327 / 339</td><td class="n">371 / 311</td><td class="n">905 / 705</td><td class="n lose">508 / 1153</td></tr>
+  <tr><td>t8 запросы</td><td class="n win">75 / 102°</td><td class="n">104 / 111°</td><td class="n">172 / 248</td><td class="n">193 / 172</td><td class="n">149 / 163</td><td class="n">346 / 390</td><td class="n lose">591 / 810</td></tr>
+  <tr><td>t9 VM</td><td class="n win">126 / 95</td><td class="n">121 / 114</td><td class="n">125 / 166</td><td class="n">192 / 170</td><td class="n">277 / 395</td><td class="n">174 / 212</td><td class="n lose">650 / 173</td></tr>
+  <tr><td>t10 cron</td><td class="n win">169 / 124</td><td class="n">138 / 225</td><td class="n">200 / 290</td><td class="n">160 / 138</td><td class="n">193 / 469</td><td class="n">359 / 343</td><td class="n lose">794 / 394</td></tr>
+  <tr class="tot"><td>Итого · 8 прогонов, мин</td><td class="n win">19,1°</td><td class="n">22,6°</td><td class="n">26,8</td><td class="n">28,2</td><td class="n">38,8</td><td class="n">57,2</td><td class="n lose">84,5</td></tr>
+</table>
+<p class="small muted" style="margin:4px 0 0"><b>°</b> — 8 ячеек codex по t7/t8 восстановлены по таймстемпам рабочих каталогов (scratchpad с замерами вычистился из <code>/private/tmp</code>): это <b>нижняя оценка</b>, занижает на 30–60 с — проверено на 8 ячейках с известным замером. Реальное «итого» у codex примерно на 2–4 мин больше; на порядок это не влияет. Прогоны шли параллельно (−P4/−P6), поэтому абсолютные секунды несут шум конкуренции — доверять рангам и кратным разрывам, не микро‑дельтам.</p>
+</div>
+<div class="card callout">
+  <div class="kpirow">
+    <div><div class="kpi" style="color:var(--accent)">0,986</div><div class="small muted">корреляция цены и времени по 7 связкам — ранги совпали один в один</div></div>
+    <div><div class="kpi" style="color:var(--accent)">$0,20–0,30</div><div class="small muted">в минуту — у <b>всех</b> связок, разброс всего 1,5× против 6,1× по цене</div></div>
+    <div><div class="kpi" style="color:var(--accent)">4,4×</div><div class="small muted">разрыв по времени на одной модели: Codex 19 мин · opencode 27 · omp 85</div></div>
+  </div>
+  <p style="margin:14px 0 0">Отсюда самый практичный вывод отчёта: <b>харнессы жгут примерно одинаково быстро — они различаются тем, как долго жгут.</b> Скорость расхода почти константа ($0,2–0,3/мин у всех семи), а итоговый счёт задаёт длительность цикла. Значит секундомер — бесплатный и честный прокси цены: не надо парсить токены и тарифы, чтобы понять, что обвязка дорогая. Если агент молотит задачу вчетверо дольше — он и стоит примерно вчетверо дороже.</p>
+</div>
+
+<h2>4. Главный инсайт: одна модель, три харнесса, разброс до 6×</h2>
+<p>Это ядро теста. Берём <b>одну и ту же</b> модель и меняем только обвязку. Корректность везде та же — а счёт разный в разы.</p>
+<div class="card callout">
+  <h3 style="color:var(--accent);margin-top:0">gpt‑5.6‑sol · medium — та же модель, 8 прогонов</h3>
+  <div class="bar"><div class="lab">Codex</div><div class="track"><div class="fill" style="width:16%;background:var(--codex56)">$3,77</div></div></div>
+  <div class="bar"><div class="lab">opencode</div><div class="track"><div class="fill" style="width:23%;background:var(--oc56)">$5,28</div></div></div>
+  <div class="bar"><div class="lab">omp</div><div class="track"><div class="fill" style="width:100%;background:var(--omp56)">$23,06</div></div></div>
+  <h3 style="color:var(--accent);margin:16px 0 8px">gpt‑5.5 · high — та же модель, 8 прогонов</h3>
+  <div class="bar"><div class="lab">Codex</div><div class="track"><div class="fill" style="width:21%;background:var(--codex55)">$4,77</div></div></div>
+  <div class="bar"><div class="lab">opencode</div><div class="track"><div class="fill" style="width:24%;background:var(--oc55)">$5,50</div></div></div>
+  <div class="bar"><div class="lab">omp</div><div class="track"><div class="fill" style="width:50%;background:var(--omp55)">$11,58</div></div></div>
+  <p style="margin:12px 0 0">Обе шкалы в одном масштабе. Вывод один: <b>обвязка — доминирующий фактор цены</b>. Она перебивает и выбор модели, и уровень эфорта. Тот самый твит про «CCX втридорога за ту же модель» — это не про Claude Code, а общий закон: харнессы расходятся в 2–6× при идентичной модели и идентичной правильности.</p>
+</div>
+
+<h2>5. Почему omp такой дорогой — и почему medium дороже, чем high</h2>
+<p>Вся разница — в числе обращений к API и объёме контекста, который харнесс пересылает на каждом шаге.</p>
+<div class="card">
+  <div class="kpirow">
+    <div><div class="kpi" style="color:var(--codex56)">≈5</div><div class="small muted">обращений к API за задачу у Codex — лаконичный цикл</div></div>
+    <div><div class="kpi" style="color:var(--oc56)">≈14</div><div class="small muted">шагов у opencode</div></div>
+    <div><div class="kpi" style="color:var(--omp56)">≈49</div><div class="small muted">обращений у omp+5.6 — каждое пересылает тяжёлый контекст заново</div></div>
+  </div>
+  <p style="margin:14px 0 0"><b>Не‑монотонность, которая ломает интуицию:</b> <code>omp56</code> (5.6‑sol, medium) стоит <b>$23,06</b> — дороже, чем <code>omp55</code> (5.5, high, <b>$11,58</b>), хотя «high эфорта больше». Причина: в omp связка 5.6‑sol‑medium менее решительна и уходит в длинные агентские циклы — <b>~49 обращений против ~26</b> у 5.5‑high. То есть «более новая модель + меньше эфорт» ≠ «дешевле»: всё решает, как харнесс и модель взаимодействуют. omp по инструментам самый «шумный» (десятки read/bash/edit + фоновые job'ы + субагенты) — это его сила по фичам, но прямой источник цены.</p>
+</div>
+
+<h2>6. opencode: почти как Codex, и самый немногословный</h2>
+<div class="card">
+  <p style="margin-top:0">opencode догоняет Codex по цене вплотную (в 1,15–1,4×) и при этом выдаёт <b>меньше всех выходных токенов</b> — он лаконичнее даже Codex. Его цена набегает не многословием, а кэш‑ридами: ~14 шагов, каждый перечитывает растущий контекст.</p>
+  <div class="bar"><div class="lab">oc56</div><div class="track"><div class="fill" style="width:22%;background:var(--oc56)">44k</div></div></div>
+  <div class="bar"><div class="lab">oc55</div><div class="track"><div class="fill" style="width:22%;background:var(--oc55)">46k</div></div></div>
+  <div class="bar"><div class="lab">codex56</div><div class="track"><div class="fill" style="width:28%;background:var(--codex56)">57k</div></div></div>
+  <div class="bar"><div class="lab">codex55</div><div class="track"><div class="fill" style="width:36%;background:var(--codex55)">74k</div></div></div>
+  <div class="bar"><div class="lab">omp55</div><div class="track"><div class="fill" style="width:41%;background:var(--omp55)">83k</div></div></div>
+  <div class="bar"><div class="lab">omp56</div><div class="track"><div class="fill" style="width:48%;background:var(--omp56)">99k</div></div></div>
+  <div class="bar"><div class="lab">ccopus</div><div class="track"><div class="fill" style="width:100%;background:var(--ccopus)">205k</div></div></div>
+  <p class="small muted" style="margin:10px 0 0">Выходные токены за 8 прогонов. opencode — самый терсный; ccopus (opus) жжёт в ~4,5× больше — премиум за многословность, не за результат.</p>
+</div>
+
+<h2>7. Методология и честные поправки</h2>
+<div class="card flag">
+  <h3 style="margin-top:0">Поправка к прошлой версии: «codex56 дико прыгает» — снято</h3>
+  <p style="margin:0">В прошлом черновике я написал, что codex56 нестабилен по цене ($0,6–3,1). <b>Это был артефакт.</b> Флаг <code>-c mcp_servers={}</code> в этой версии Codex <b>не</b> отключает MCP из глобального конфига — flaky <code>exa</code> MCP периодически висел и раздувал сессии в 2–6×. Настоящий фикс — отдельный <code>CODEX_HOME</code> без MCP. На чистых прогонах codex56 — самый ровный и дешёвый. Цифры выше все пересняты начисто.</p>
+</div>
+<div class="card">
+  <ul style="margin:0">
+    <li><b>Изоляция обвязок.</b> Codex — чистый <code>CODEX_HOME</code> без MCP. opencode — <code>--pure</code> (без внешних плагинов/MCP). omp — <code>--no-lsp</code>, провайдер <code>openai-codex</code>. Каждый прогон проверен на web/MCP‑вызовы: реальных нет (одно совпадение по подстроке «exa» в схеме оказалось ложным — вызова не было).</li>
+    <li><b>Цена считается единообразно.</b> Для всех GPT‑связок — из счётчиков токенов по одному тарифу ($5/$0,5/$30). omp считает цену сам (сверено); у opencode цена в логах нулевая (oauth) — восстановил из токенов. Не полагаюсь на автоцену тулзы вслепую: у ccusage разово выскочила fallback‑цена, поймал и пересчитал.</li>
+    <li><b>Автономность под ключ.</b> Все 56 прогонов — headless, без единого вопроса к человеку: Codex (sandbox+never), Claude Code (scoped‑права), opencode (<code>--auto</code>), omp (<code>-p</code>). Все довели до зелёного сами.</li>
+    <li><b>Время — и поправка к моей же оговорке.</b> В прошлой версии я время не показал: «зашумлено параллельным запуском». Проверил — <b>зря выкинул</b>: ранги по времени совпали с рангами по цене на всех семи связках (r = 0,986), шум конкуренции крупные разрывы не съедает. Замер — от старта процесса до выхода, при −P4/−P6. 8 ячеек codex по t7/t8 — восстановленная нижняя оценка (см. сноску к разделу 3), потому что каталог с замерами вычистился из <code>/private/tmp</code>; переснимать ради этого 8 прогонов не стал: они всё равно шли бы при другой загрузке и были бы менее сравнимы, а не более.</li>
+    <li><b>Выборка.</b> 4 задачи × 2 прогона на связку — <b>индикативно, не доказательно</b>. Доверять крупным разрывам (цена в разы), а не микро‑дельтам. Эфорты не выровнены — это «мои реальные конфиги».</li>
+  </ul>
+</div>
+
+<h2>Что делаю по итогу</h2>
+<div class="card">
+  <ul style="margin:0">
+    <li><b>Остаюсь на Codex.</b> Дешевле всех при той же корректности, самый лаконичный цикл. <code>codex56</code> (5.6‑sol med) — рабочий дефолт.</li>
+    <li><b>opencode — годная альтернатива.</b> Рядом по цене, самый немногословный; если понадобится его UX/фичи — переплата минимальна.</li>
+    <li><b>omp — не для рутины по цене.</b> Богатый по возможностям (LSP, дебаггер, память, субагенты), но на этих задачах в 2–6× дороже за тот же результат. Брать его — осознанно ради фич, не по умолчанию.</li>
+    <li><b>opus / нативный Claude Code — премиум без основания</b> на задачах, которые не разделяются по корректности. Держать под реально трудное, где модель может отрываться, — а тест показал, что до этого потолка мои задачи не дотянулись.</li>
+  </ul>
+</div>
+
+<div class="foot">
+  Окружение: OpenAI Codex v0.144.4 · opencode 1.17.17 · omp 16.5.2 · Claude Code v2.1.210 · Node 26.5.0 · Python 3.14.6 · TS 5.9.3.
+  56 прогонов (7 связок × 4 задачи × 2), метрики восстановлены из логов харнессов (ccusage‑codex + пересчёт по токенам, claude‑json, потоки событий opencode/omp).
+  Не бенчмарк — личная история «что лучше именно мне на моём стеке». v4: выкинуты лёгкие задачи 1–6 и ccx; добавлены opencode и omp; главный вывод сместился с «codex55 лучший» на «харнесс важнее модели, Codex эффективнее всех». v4.1: вернул время (раздел 3) — оно оказалось той же осью, что и цена, а не шумом.
+</div>
+
+</div>
+
+<script>
+  (function(){var r=document.documentElement;
+    try{var t=localStorage.getItem('theme');if(t)r.setAttribute('data-theme',t);}catch(e){}})();
+</script>

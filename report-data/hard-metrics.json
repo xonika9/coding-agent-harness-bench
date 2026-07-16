@@ -1,0 +1,29 @@
+{
+  "_SUPERSEDED_BY": "metrics-710.json — this file's codex56/codex55 costs are MCP-contaminated (the -c mcp_servers={} flag did NOT disable the flaky exa MCP; it inflated some codex runs 2-6x). Clean numbers (via a dedicated MCP-free CODEX_HOME) plus opencode/omp columns and 2 more tasks (t9,t10) live in metrics-710.json and report.html v4. Kept for history only.",
+  "_note": "Hard-task run: 2 bespoke creation tasks (t7-ts-formula, t8-py-query), 3 finalists, 2 runs each. Wall seconds are noisy (concurrent proxy load); cost/tokens are the robust axis. Codex cost via ccusage-codex matched by cwd; ccopus cost from claude -p --output-format json.",
+  "tasks": {
+    "t7-ts-formula": "TS spreadsheet formula engine (tokenizer+parser+precedence+functions+strict error taxonomy); Opus calibrated to ~15 min; 61 visible + 44 hidden tests",
+    "t8-py-query": "Python record query engine (filter->sort->distinct->paginate->project, strict type semantics); 29 visible + 22 hidden tests"
+  },
+  "cells": {
+    "t7-ts-formula": {
+      "codex56": {"r1": {"wall": 294, "cost": 0.931, "grade": "PASS"}, "r2": {"wall": 662, "cost": 2.827, "grade": "PASS", "note": "concurrency+long-loop inflated"}},
+      "codex55": {"r1": {"wall": 316, "cost": 0.942, "grade": "PASS"}, "r2": {"wall": 284, "cost": 0.938, "grade": "PASS"}},
+      "ccopus":  {"r1": {"wall": 905, "cost": 3.077, "turns": 12, "grade": "PASS"}, "r2": {"wall": 705, "cost": 2.60, "turns": 12, "grade": "PASS"}}
+    },
+    "t8-py-query": {
+      "codex56": {"r1": {"wall": 525, "cost": 3.066, "grade": "FAIL", "note": "only hidden failure: bool-in-ordered-comparison, spec was ambiguous -> not a valid separation; r2 passed"}, "r2": {"wall": 140, "cost": 0.615, "grade": "PASS"}},
+      "codex55": {"r1": {"wall": 129, "cost": 0.459, "grade": "PASS"}, "r2": {"wall": 145, "cost": 0.503, "grade": "PASS"}},
+      "ccopus":  {"r1": {"wall": 346, "cost": 1.265, "turns": 9, "grade": "PASS"}, "r2": {"wall": 390, "cost": 1.412, "turns": 11, "grade": "PASS"}}
+    }
+  },
+  "cost_sum_4runs": {"codex56": 7.44, "codex55": 2.84, "ccopus": 8.35},
+  "correctness": {"codex56": "3.5/4 (1 fail on ambiguous spec assertion)", "codex55": "4/4", "ccopus": "4/4", "verdict": "tie; the single failure is a spec-ambiguity artifact, honestly flagged and neutralized"},
+  "confounders_handled": [
+    "codex MCP servers disabled for runs (dead openaiDeveloperDocs MCP was hanging codex and inflating time/tokens)",
+    "wall time noisy from concurrent proxy load -> cost/tokens used as primary efficiency axis",
+    "ccopus one transient API drop (Connection closed mid-response) on t8 r1 -> retried once per critic rule",
+    "one hidden assertion (bool in ordered comparison) was underspecified -> flagged, spec tightened, not counted as separation"
+  ],
+  "critics": {"opus": "REVISE", "gpt": "REVISE", "shared_prediction": "hard tasks converge to green -> correctness tie -> decision reverts to efficiency where codex55 already wins; confirmed"}
+}
